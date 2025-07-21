@@ -1,0 +1,7 @@
+{
+  "java.project.referencedLibraries": [
+    "lib/opencv-490.jar"
+],
+"java.configuration.updateBuildConfiguration": "automatic",
+"git.ignoreLimitWarning": true
+}

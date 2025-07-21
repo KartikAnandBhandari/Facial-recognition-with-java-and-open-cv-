@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch AttendanceSystem",
+      "request": "launch",
+      "mainClass": "com.example.AttendanceSystem",
+      "projectName": "face-recognition",
+      "vmArgs": "-Djava.library.path=${workspaceFolder}/lib"
+    }
+  ]
+}

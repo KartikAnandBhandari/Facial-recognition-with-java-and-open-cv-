@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>face-recognition</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+<properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <maven.compiler.parameters>true</maven.compiler.parameters>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <opencv.version>4.9.0</opencv.version>
+    <slf4j.version>1.7.36</slf4j.version>
+</properties>
+
+
+    <dependencies>
+        <!-- OpenCV 4.9.0 (local JAR assumed in /lib) -->
+        <dependency>
+            <groupId>org.opencv</groupId>
+            <artifactId>opencv</artifactId>
+            <version>${opencv.version}</version>
+        </dependency>
+
+        <!-- SLF4J API for logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- SLF4J Simple binding for console logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <!-- ONNX Runtime (optional, remove if unused) -->
+        <dependency>
+            <groupId>com.microsoft.onnxruntime</groupId>
+            <artifactId>onnxruntime</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Java Compiler Plugin -->
+           <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.11.0</version>
+    <configuration>
+        <release>${maven.compiler.release}</release>
+        <parameters>${maven.compiler.parameters}</parameters>
+    </configuration>
+</plugin>
+
+
+            <!-- Execute Java Application -->
+           <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>exec-maven-plugin</artifactId>
+    <version>3.1.0</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>java</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <mainClass>com.example.AttendanceSystem</mainClass>
+        <classpathScope>runtime</classpathScope>
+        <systemProperties>
+            <systemProperty>
+                <key>java.library.path</key>
+                <value>${project.basedir}/lib</value>
+            </systemProperty>
+        </systemProperties>
+    </configuration>
+</plugin>
+
+
+            <!-- Copy Resources (Model Files) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>prototxt</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>caffemodel</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>onnx</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>xml</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+        </plugins>
+
+        <!-- Resource Configuration -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>
